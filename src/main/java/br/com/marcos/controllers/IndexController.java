@@ -36,15 +36,10 @@ public class IndexController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model ){
         List<QuestionDTO> questions = new ArrayList<>();
-
         List<Office> offices = officeRepository.findAll();
-        //List<String> distinctNames = serviceRepository.findDistinctNames();
         List<String> distinctNames = serviceRepository.findDistinctNames();
-        //List<Service> distinctServices = serviceRepository.findDistinctByName(distinctNames);
-
         OfficeComparator officeComparator = new OfficeComparator();
         StatusDTOComparator statusComparator = new StatusDTOComparator();
-
 
         Collections.sort(offices, officeComparator);
 
@@ -104,7 +99,7 @@ public class IndexController {
         model.addAttribute("statuses", statuses);
         model.addAttribute("usableStatuses", usableStatuses);
         model.addAttribute("serviceName", sameNameServices.get(0).getName());
-        return "form" ;
+        return "edit-service-line" ;
     }
 
     @RequestMapping(value = "/save-changes-line", method = RequestMethod.POST)
@@ -113,18 +108,5 @@ public class IndexController {
             serviceRepository.updateStatus(dto.getServiceId(), dto.getStatus());
         }
         return "redirect:/";
-    }
-
-    @RequestMapping(value = "/simpleForm", method = RequestMethod.GET)
-    public String simpleForm(){
-        //serviceRepository.
-        return "form" ;
-    }
-
-    @RequestMapping(value = "/select-office", method = RequestMethod.POST)
-    public String selectOffice(OfficeForm officeForm, Model model){
-
-        System.out.println(officeRepository.findOne(officeForm.getTheOffice().getId()));
-        return "office-selected" ;
     }
 }
