@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Answer the Questions</title>
+        <link rel="stylesheet" type="text/css" href="../view.css" media="all"/>
+        <script type="text/javascript" src="../view.js"></script>
+    </head>
+    <body id="main_body">
+
+        <img id="top" src="../top.png" alt=""/>
+        <div id="form_container">
+
+            <h1 style="color:#fff;"><a th:text="${'Answer the Question: ' + serviceName}"> </a></h1>
+            <form id="form_1871" class="appnitro" method="post" th:object="${lineForm}" action="../save-changes-line">
+                <div class="form_description">
+                    <h2 th:text="${'Answer the Question: ' + serviceName + ' ?'}"></h2>
+                    <p>IT Facebook </p>
+                </div>
+                <ul>
+                    <li th:each="statusdto,mystatus : ${statuses}">
+                        <label class="description" th:text="${statusdto.officeName}"></label>
+                        <span>
+                            <th:block th:each="val : ${usableStatuses}">
+                                <input type="radio" class="element radio"
+                                       th:field="*{statuses[__${mystatus.index}__].status}"
+                                       th:checked="${#strings.equals(val, statusdto.status)}"
+                                       th:value="${val}" />
+                                <label class="choice" th:for="*{statuses[__${mystatus.index}__].status}" th:text="${val}"></label>
+                            </th:block>
+                        </span>
+                        <input type="hidden" th:field="*{statuses[__${mystatus.index}__].serviceId}"/>
+                    </li>
+                    <li class="buttons">
+                        <input type="hidden" name="form_id" value="1871"/>
+                        <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>
+                    </li>
+                </ul>
+            </form>
+            <div id="footer">
+
+            </div>
+        </div>
+        <img id="bottom" src="../bottom.png" alt=""/>
+    </body>
+</html>

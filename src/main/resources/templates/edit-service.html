@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Index Page</title>
+</head>
+<body>
+    <h1>Formul&aacute;rio</h1>
+    <p>Escolha o Office:</p>
+
+    <form style="padding-left: 30px;" action="select-office" method="post" th:object="${officeForm}">
+        Office:<select id="officeId" th:field="*{theOffice}">
+            <option th:each="office : ${offices}"
+                    th:value="${office.id}"
+                    th:data-code="${office.name}"
+                    th:text="${office.name}">Minas Gerais
+            </option>
+        </select>
+        <br/>
+        <hr/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="Enviar" />
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Dashboard</title>
+
+    #8b9dc3
+    #dfe3ee
+    #f7f7f7
+    #ffffff
+    <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#dfe3ee;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#fff;background-color:#3b5998;}
+.tg .tg-yw4l{vertical-align:top;font-weight: bold;}
+.tg .tg-yyyy{vertical-align:top;}
+.tg .tg-b7b8{background-color:#dfe3ee;vertical-align:top}
+.tg .tg-bbbb{background-color:#f7f7f7;vertical-align:top;color:#8b9dc3}
+@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Edite os campos:</p>
+
+    <form style="padding-left: 30px;" method="post" th:object="${dashboardForm}">
+        <div class="tg-wrap">
+            <table class="tg">
+                <tr>
+                    <th class="tg-yyyy">Questions/Site</th>
+                    <th:block th:each="office : ${offices}">
+                        <th class="tg-yw4l" th:text="${{office.name}}"></th>
+                    </th:block>
+                </tr>
+                <tr th:each="question : ${questions}">
+                    <td class="tg-b7b8" th:text="${{question.serviceName}}"></td>
+                    <th:block th:each="statusDTO : ${question.statuses}">
+                        <td class="tg-b7b8" th:text="${statusDTO.status}"></td>
+                    </th:block>
+
+                    <!--
+                    SOLUTION
+                    "'javascript:location.href = window.location.href + \'edit-service/\' + \'' + ${#strings.replace(question.serviceName, ' ', '')} + '\''"
+                    BETTER SOLUTION
+                    "'javascript:location.href = window.location.href + \'edit-service/\' + \'' + ${question.refServiceId} + '\''"
+                     -->
+                    <td class="tg-bbbb" style="cursor: pointer;" th:onclick="'javascript:location.href = window.location.href + \'edit-service/\' + \'' + ${question.refServiceId} + '\''">EDIT</td>
+                </tr>
+            </table>
+        </div>
+
+        <table summary="Column one has the location and size of accommodation, other columns show the type and number of properties available">
+            <caption>
+                Availability of holiday accommodation
+            </caption>
+            <thead>
+            <tr>
+                <td></td>
+                <th id="stud" scope="col">
+                    Studio
+                </th>
+                <th id="apt" scope="col">
+                    <abbr title="Apartment">Apt</abbr>
+                </th>
+                <th id="chal" scope="col">
+                    Chalet
+                </th>
+                <th id="villa" scope="col">
+                    Villa
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th id="par" class="span" colspan="5" scope="colgroup">
+                    Paris
+                </th>
+            </tr>
+            <tr>
+                <th headers="par" id="pbed1">
+                    1 bedroom
+                </th>
+                <td headers="par pbed1 stud">
+                    11
+                </td>
+                <td headers="par pbed1 apt">
+                    20
+                </td>
+                <td headers="par pbed1 chal">
+                    25
+                </td>
+                <td headers="par pbed1 villa">
+                    23
+                </td>
+            </tr>
+            <tr>
+                <th headers="par" id="pbed2">
+                    2 bedroom
+                </th>
+                <td headers="par pbed2 stud">
+                    -
+                </td>
+                <td headers="par pbed2 apt">
+                    43
+                </td>
+                <td headers="par pbed2 chal">
+                    52
+                </td>
+                <td headers="par pbed2 villa">
+                    32
+                </td>
+            </tr>
+            <tr>
+                <th headers="par" id="pbed3">
+                    3 bedroom
+                </th>
+                <td headers="par pbed3 stud">
+                    -
+                </td>
+                <td headers="par pbed3 apt">
+                    13
+                </td>
+                <td headers="par pbed3 chal">
+                    15
+                </td>
+                <td headers="par pbed3 villa">
+                    40
+                </td>
+            </tr>
+            <tr>
+                <th id="rome" class="span" colspan="5" scope="colgroup">
+                    Rome
+                </th>
+            </tr>
+            <tr>
+                <th id="rbed1" headers="rome">
+                    1 bedroom
+                </th>
+                <td headers="rome rbed1 stud">
+                    13
+                </td>
+                <td headers="rome rbed1 apt">
+                    21
+                </td>
+                <td headers="rome rbed1 chal">
+                    22
+                </td>
+                <td headers="rome rbed1 villa">
+                    3
+                </td>
+            </tr>
+            <tr>
+                <th id="rbed2" headers="rome">
+                    2 bedroom
+                </th>
+                <td headers="rome rbed2 stud">
+                    -
+                </td>
+                <td headers="rome rbed2 apt">
+                    23
+                </td>
+                <td headers="rome rbed2 chal">
+                    43
+                </td>
+                <td headers="rome rbed2 villa">
+                    30
+                </td>
+            </tr>
+            <tr>
+                <th id="rbed3" headers="rome">
+                    3 bedroom
+                </th>
+                <td headers="rome rbed3 stud">
+                    -
+                </td>
+                <td headers="rome rbed3 apt">
+                    16
+                </td>
+                <td headers="rome rbed3 chal">
+                    32
+                </td>
+                <td headers="rome rbed3 villa">
+                    40
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- table class="table">
+            <thead>
+            <tr>
+                <th th:text="id"></th>
+                <th th:text="msg"></th>
+                <th th:text="#{conference.schedule.time}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sb : ${allConferenceSchedules}">
+                <td th:text="${{sb.lawyer.email}}"></td>
+                <td th:text="${{sb.client.email}}"></td>
+                <td th:text="${{sb.time}}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+            <tr>
+                <th th:text="#{seedstarter.rows.head.rownum}">Row</th>
+                <th th:text="#{seedstarter.rows.head.variety}">Variety</th>
+                <th th:text="#{seedstarter.rows.head.seedsPerCell}">Seeds per cell</th>
+                <th>
+                    <button type="submit" name="addRow" th:text="#{seedstarter.row.add}">Add row</button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row,rowStat : *{rows}">
+                <td th:text="${rowStat.count}">1</td>
+                <td>
+                    <select th:field="*{rows[__${rowStat.index}__].variety}">
+                        <option th:each="var : ${allVarieties}"
+                                th:value="${var.id}"
+                                th:text="${var.name}">Thymus Thymi</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" th:field="*{rows[__${rowStat.index}__].seedsPerCell}" />
+                </td>
+                <td>
+                    <button type="submit" name="removeRow"
+                            th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}">Remove row</button>
+                </td>
+            </tr>
+            </tbody>
+        </table -->
+    </form>
+
+</body>
+</html>
