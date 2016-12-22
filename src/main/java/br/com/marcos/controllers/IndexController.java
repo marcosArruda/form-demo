@@ -1,11 +1,13 @@
 package br.com.marcos.controllers;
 
 import br.com.marcos.model.Office;
+import br.com.marcos.model.Region;
 import br.com.marcos.model.Service;
 import br.com.marcos.model.comparator.OfficeComparator;
 import br.com.marcos.model.comparator.StatusDTOComparator;
 import br.com.marcos.model.dto.*;
 import br.com.marcos.repositories.OfficeRepository;
+import br.com.marcos.repositories.RegionRepository;
 import br.com.marcos.repositories.ServiceRepository;
 import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sound.sampled.Line;
 import java.util.*;
@@ -31,7 +34,8 @@ public class IndexController {
     @Autowired
     private ServiceRepository serviceRepository;
 
-
+    @Autowired
+    private RegionRepository regionRepository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model ){
@@ -68,9 +72,20 @@ public class IndexController {
         }
 
 
+        //adicionando combo de Regioes;
+        List<RegionDTO> regionDTOList = new ArrayList<>();
+        List<Region> regions = regionRepository.findIdAndName();
+        for (Region r : regions) {
+            RegionDTO dtoRegion = new RegionDTO();
+            dtoRegion.setId(r.getId());
+            dtoRegion.setName(r.getName());
+            regionDTOList.add(dtoRegion);
+        }
+
         DashboardFormDTO dto = new DashboardFormDTO();
         model.addAttribute("dashboardForm", dto);
         model.addAttribute("offices", offices);
+        model.addAttribute("regions", regionDTOList);
         model.addAttribute("questions", questions);
 
         return "index" ;
