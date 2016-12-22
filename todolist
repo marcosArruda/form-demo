@@ -1,0 +1,6 @@
+- Adicionar combo de Regioes para filtrar os resultados da table do dashboard;
+- Adicionar os icones verde, vermelho e amarelo para as respostas;
+- Adicionar tipo de resposta NUMERO;
+	- Adicionar Coloração nos numeros de acordo com metricas passadas;
+- Edição de coluna;
+- Colocar bandeiras das regioes;
