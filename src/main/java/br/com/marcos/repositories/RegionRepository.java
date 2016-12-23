@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Repository
 public interface RegionRepository extends PagingAndSortingRepository<Region, Long> {
-    @Query("select u.id, u.name from Region u")
-    List<Region> findIdAndName();
+
+    List<Region> findAll();
 
 }

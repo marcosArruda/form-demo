@@ -29,8 +29,13 @@
 
     <form style="padding-left: 30px;" method="post" th:object="${dashboardForm}">
         <select>
-            <option></option>
+            <th:block th:each="region : ${regions}">
+                <option th:value="${region.id}" th:text="${region.name}"></option>
+            </th:block>
         </select>
+        <img src="../icons/bullet_green.png"/>
+        <img src="../icons/bullet_red.png"/>
+        <img src="../icons/bullet_yellow.png"/>
         <div class="tg-wrap">
             <table class="tg">
                 <tr>
@@ -42,7 +47,16 @@
                 <tr th:each="question : ${questions}">
                     <td class="tg-b7b8" th:text="${{question.serviceName}}"></td>
                     <th:block th:each="statusDTO : ${question.statuses}">
-                        <td class="tg-b7b8" th:text="${statusDTO.status}"></td>
+                        <td class="tg-b7b8">
+                            <th:block th:switch="${statusDTO.status}">
+                                <img th:case="'yes'" src="../icons/bullet_green.png" th:alt="${statusDTO.status}"/>
+                                <img th:case="'no'" src="../icons/bullet_red.png" th:alt="${statusDTO.status}"/>
+                                <img th:case="'others'" src="../icons/bullet_yellow.png" th:alt="${statusDTO.status}"/>
+                            </th:block>
+                        </td>
+                        <!-- td class="tg-b7b8" th:text="${statusDTO.status}">
+
+                        </td -->
                     </th:block>
                     <td class="tg-bbbb" style="cursor: pointer;" th:onclick="'javascript:location.href = window.location.href + \'edit-service/\' + \'' + ${question.refServiceId} + '\''">EDIT</td>
                 </tr>

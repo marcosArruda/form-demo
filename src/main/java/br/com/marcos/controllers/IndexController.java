@@ -74,13 +74,17 @@ public class IndexController {
 
         //adicionando combo de Regioes;
         List<RegionDTO> regionDTOList = new ArrayList<>();
-        List<Region> regions = regionRepository.findIdAndName();
+        List<Region> regions = regionRepository.findAll();
+
+        regionDTOList.add(new RegionDTO(-1000L,"ALL OF THEM"));
         for (Region r : regions) {
             RegionDTO dtoRegion = new RegionDTO();
             dtoRegion.setId(r.getId());
             dtoRegion.setName(r.getName());
             regionDTOList.add(dtoRegion);
         }
+        regions.clear();
+
 
         DashboardFormDTO dto = new DashboardFormDTO();
         model.addAttribute("dashboardForm", dto);
